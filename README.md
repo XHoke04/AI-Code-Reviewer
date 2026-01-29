@@ -44,7 +44,7 @@ Once running, visit:
 ## Project Status
 
 - [x] Task 1: Basic FastAPI setup
-- [ ] Task 2: Database setup
+- [x] Task 2: Database setup
 - [ ] Task 3: GitHub webhook endpoint
 - [ ] Task 4: GitHub API integration
 - [ ] Task 5: OpenAI integration
