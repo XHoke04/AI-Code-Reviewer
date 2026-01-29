@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.config import get_settings
+from app.database import engine, Base
+from app import models
 import logging
 
 # Configure logging
@@ -20,7 +22,14 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting AI Code Reviewer Assistant")
     logger.info(f"Environment: {settings.environment}")
+
+    # Create database tables
+    logger.info("Creating database tables...")
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database tables created.")
+
     yield
+
     # Shutdown
     logger.info("Shutting down AI Code Reviewer Assistant")
 
@@ -55,7 +64,8 @@ async def health_check():
     """Health check endpoint."""
     return {
         "status": "healthy",
-        "environment": settings.environment
+        "environment": settings.environment,
+        "database": "connected"
     }
 
 # Add webhooks here later

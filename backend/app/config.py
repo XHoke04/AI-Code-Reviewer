@@ -17,11 +17,12 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
 
     # Database config (will add later)
-    database_url: str = ""
+    database_url: str = "postgresql://ai_reviewer:dev_password_123@localhost:5432/ai_code_review"
 
     class Config:
         env_file = ".env"
         case_sensitive = False
+        extra = "ignore"
 
 @lru_cache()
 def get_settings() -> Settings:
